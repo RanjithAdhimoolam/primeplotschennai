@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 router.get("/", getProperties);
-
+router.get("/search", searchProperties);
 router.get("/:id", getProperty);
 
 router.post("/", upload.array("images", 10), addProperty);
