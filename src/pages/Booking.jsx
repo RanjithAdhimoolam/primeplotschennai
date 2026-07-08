@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API = import.meta.env.VITE_API_URL;
+
 function Booking() {
   const [form, setForm] = useState({
     name: "",
@@ -12,6 +14,8 @@ function Booking() {
     message: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -22,10 +26,11 @@ function Booking() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await axios.post("http://localhost:5000/api/bookings", form);
+    setLoading(true);
 
-      alert("Booking Submitted Successfully");
+    try {
+      await axios.post(`${API}/api/bookings`, form);
+      alert("✅ Booking Submitted Successfully");
 
       setForm({
         name: "",
@@ -37,9 +42,12 @@ function Booking() {
         message: "",
       });
     } catch (err) {
-      alert("Booking Failed");
-      console.log(err);
+      console.error(err);
+
+      alert("❌ Booking Failed");
     }
+
+    setLoading(false);
   };
 
   return (
@@ -105,11 +113,8 @@ function Booking() {
               required
             >
               <option value="">Select Project</option>
-
               <option>Prime City - Guduvanchery</option>
-
               <option>KKR Avenue - Oragadam</option>
-
               <option>Royal County - Avadi</option>
             </select>
 
@@ -128,7 +133,6 @@ function Booking() {
               required
             >
               <option value="">Preferred Time</option>
-
               <option>10:00 AM</option>
               <option>12:00 PM</option>
               <option>03:00 PM</option>
@@ -141,10 +145,10 @@ function Booking() {
               placeholder="Message"
               value={form.message}
               onChange={handleChange}
-            ></textarea>
+            />
 
-            <button type="submit" className="btn-primary">
-              Book Site Visit
+            <button type="submit" className="btn-primary" disabled={loading}>
+              {loading ? "Submitting..." : "Book Site Visit"}
             </button>
           </form>
         </div>
