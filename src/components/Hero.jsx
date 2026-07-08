@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./Hero.css";
-import hero from "../assets/hero.jpg";
 function Hero() {
   return (
     <section className="hero" style={{ backgroundImage: `url(${hero})` }}>

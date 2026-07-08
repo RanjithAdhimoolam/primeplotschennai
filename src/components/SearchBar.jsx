@@ -29,7 +29,13 @@ function SearchBar() {
             <option>Above ₹30 Lakhs</option>
           </select>
 
-          <button>Search</button>
+          <button
+            onClick={() => {
+              window.location.href = `/projects?location=${search}`;
+            }}
+          >
+            Search
+          </button>
         </div>
       </div>
     </section>

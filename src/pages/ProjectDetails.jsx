@@ -56,225 +56,132 @@ function ProjectDetails() {
   if (!project) {
     return (
       <div className="container section">
-        <h1>Project Not Found</h1>
-
+        <h2>Project Not Found</h2>
         <Link to="/" className="btn-primary">
           Back Home
         </Link>
       </div>
     );
   }
+
   return (
-    <div className="container section">
-      <img
-        src={project.image}
-        alt={project.title}
-        style={{
-          width: "100%",
-          height: "500px",
-          objectFit: "cover",
-          borderRadius: "15px",
-        }}
-      />
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
-          gap: "15px",
-          marginTop: "20px",
-        }}
-      >
-        {project.gallery.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt=""
-            style={{
-              height: "120px",
-              objectFit: "cover",
-              borderRadius: "10px",
-            }}
-          />
-        ))}
-      </div>
-      {project.images.map((img) => (
+    <section className="section">
+      <div className="container">
         <img
-          key={img}
-          src={`http://localhost:5000/uploads/${img}`}
-          alt="Property"
-          className="gallery-image"
+          src={project.image}
+          alt={project.title}
+          style={{
+            width: "100%",
+            height: "450px",
+            objectFit: "cover",
+            borderRadius: "10px",
+          }}
         />
-      ))}
-      <h1
-        style={{
-          marginTop: "30px",
-          fontSize: "42px",
-        }}
-      >
-        {project.title}
-      </h1>
 
-      <p style={{ color: "#6b7280", marginTop: "10px" }}>
-        📍 {project.location}
-      </p>
-
-      <p
-        style={{
-          color: "green",
-          fontWeight: "bold",
-          marginTop: "10px",
-        }}
-      >
-        {project.approval}
-      </p>
-
-      <h2
-        style={{
-          color: "#2563eb",
-          marginTop: "15px",
-        }}
-      >
-        {project.price}
-      </h2>
-
-      <p
-        style={{
-          marginTop: "25px",
-          lineHeight: "1.8",
-        }}
-      >
-        {project.description}
-      </p>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-          gap: "20px",
-          marginTop: "40px",
-        }}
-      >
-        <div className="card" style={{ padding: "20px" }}>
-          <h3>Plot Size</h3>
-          <p>{project.size}</p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
+            gap: "10px",
+            marginTop: "20px",
+          }}
+        >
+          {(project.gallery || []).map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`Gallery ${index + 1}`}
+              style={{
+                width: "100%",
+                height: "120px",
+                objectFit: "cover",
+                borderRadius: "8px",
+              }}
+            />
+          ))}
         </div>
 
-        <div className="card" style={{ padding: "20px" }}>
-          <h3>Road Width</h3>
-          <p>{project.road}</p>
-        </div>
+        <h1 style={{ marginTop: "30px" }}>{project.title}</h1>
 
-        <div className="card" style={{ padding: "20px" }}>
-          <h3>Bank Loan</h3>
-          <p>Available</p>
-        </div>
-      </div>
-      {/* Amenities */}
+        <p>📍 {project.location}</p>
+        <p>
+          <strong>{project.approval}</strong>
+        </p>
 
-      <div style={{ marginTop: "50px" }}>
-        <h2>Amenities</h2>
+        <h2 style={{ color: "#0b7a32" }}>{project.price}</h2>
+
+        <p style={{ marginTop: "20px", lineHeight: "1.8" }}>
+          {project.description}
+        </p>
 
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
             gap: "15px",
-            marginTop: "20px",
+            marginTop: "30px",
           }}
         >
-          <div>✅ Black Top Road</div>
-          <div>✅ Street Lights</div>
-          <div>✅ Gated Community</div>
-          <div>✅ EB Connection</div>
-          <div>✅ Water Facility</div>
-          <div>✅ Children's Park</div>
-          <div>✅ Bank Loan Available</div>
-          <div>✅ Ready to Construct</div>
+          <div className="card">
+            <h3>Plot Size</h3>
+            <p>{project.size}</p>
+          </div>
+
+          <div className="card">
+            <h3>Road Width</h3>
+            <p>{project.road}</p>
+          </div>
+
+          <div className="card">
+            <h3>Bank Loan</h3>
+            <p>Available</p>
+          </div>
         </div>
-      </div>
 
-      {/* Google Map */}
+        <div style={{ marginTop: "40px" }}>
+          <h2>Google Map</h2>
 
-      <div style={{ marginTop: "50px" }}>
-        <h2>Project Location</h2>
-
-        <iframe
-          title="Project Location"
-          src={project.map}
-          width="100%"
-          height="450"
-          style={{
-            border: 0,
-            borderRadius: "12px",
-            marginTop: "20px",
-          }}
-          loading="lazy"
-        ></iframe>
-      </div>
-
-      {/* Action Buttons */}
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-          gap: "20px",
-          marginTop: "40px",
-        }}
-      >
-        <a href="tel:+919385998524" className="btn-primary">
-          📞 Call Now
-        </a>
-
-        <a
-          href={`https://wa.me/919385998524?text=Hi, I am interested in ${project.title}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-success"
-        >
-          💬 WhatsApp
-        </a>
-
-        <Link
-          to="/booking"
-          className="btn-primary"
-          style={{ textAlign: "center" }}
-        >
-          📅 Book Site Visit
-        </Link>
-      </div>
-
-      {/* Quick Enquiry */}
-
-      <div
-        className="card"
-        style={{
-          marginTop: "50px",
-          padding: "30px",
-        }}
-      >
-        <h2>Quick Enquiry</h2>
+          <iframe
+            title="Map"
+            src={project.map}
+            width="100%"
+            height="400"
+            style={{
+              border: 0,
+              borderRadius: "10px",
+              marginTop: "15px",
+            }}
+            loading="lazy"
+          ></iframe>
+        </div>
 
         <div
           style={{
-            display: "grid",
+            display: "flex",
             gap: "15px",
-            marginTop: "20px",
+            marginTop: "30px",
+            flexWrap: "wrap",
           }}
         >
-          <input type="text" placeholder="Full Name" />
+          <a href="tel:+919385998524" className="btn-primary">
+            📞 Call Now
+          </a>
 
-          <input type="tel" placeholder="Mobile Number" />
+          <a
+            href={`https://wa.me/919385998524?text=Hi, I am interested in ${project.title}`}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-success"
+          >
+            💬 WhatsApp
+          </a>
 
-          <input type="email" placeholder="Email Address" />
-
-          <textarea rows="5" placeholder="Message"></textarea>
-
-          <button className="btn-primary">Submit Enquiry</button>
+          <Link to="/booking" className="btn-primary">
+            📅 Book Site Visit
+          </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

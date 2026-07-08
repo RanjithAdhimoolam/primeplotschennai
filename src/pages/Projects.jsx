@@ -3,11 +3,8 @@ import ProjectCard from "../components/ProjectCard";
 import plot1 from "../assets/plot1.jpg";
 import plot2 from "../assets/plot2.jpg";
 import plot3 from "../assets/plot3.jpg";
-import { useSearchParams } from "react-router-dom";
-function Projects() {
-  const searchParams = useSearchParams();
-  const location = searchParams.get("location");
 
+function Projects() {
   const projects = [
     {
       id: 1,
@@ -34,7 +31,6 @@ function Projects() {
       price: "₹30 Lakhs",
     },
   ];
-  axios.get(`http://localhost:5000/api/properties/search?location=${location}`);
 
   return (
     <section className="section">

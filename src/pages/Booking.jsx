@@ -30,6 +30,7 @@ function Booking() {
 
     try {
       await axios.post(`${API}/api/bookings`, form);
+      z;
       alert("✅ Booking Submitted Successfully");
 
       setForm({
